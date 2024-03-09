@@ -1,0 +1,103 @@
+// ======================== HEADER ======================== //
+.header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  background-color: rgba($color: #fff, $alpha: 0.8);
+  backdrop-filter: saturate(1.8) blur(20px);
+  -webkit-backdrop-filter: saturate(1.8) blur(20px);
+}
+
+.header__container {
+  display: flex;
+  height: 80px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__logo {
+  display: inline-block;
+  margin-right: 16px;
+}
+
+.logo__image {
+  height: 20px;
+}
+
+// ======================== MENU BTN ======================== //
+.menu-btn {
+  position: relative;
+  display: none;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+
+  &::after {
+    position: absolute;
+    content: "";
+    width: 44px;
+    height: 44px;
+  }
+
+  @include mediaPhone {
+    display: flex;
+  }
+}
+
+.menu-btn__burger {
+  display: flex;
+  width: 28px;
+  height: 3px;
+  background: #000;
+  translate: 0 -5px;
+  transition: translate 150ms ease-out 150ms, rotate 150ms ease-in;
+}
+
+.menu-btn__burger::before {
+  content: "";
+  position: absolute;
+  width: 28px;
+  height: 3px;
+  background: #000;
+  translate: 0 10px;
+  transition: translate 150ms ease-out 150ms, rotate 150ms ease-in;
+}
+
+.menu-btn--opened .menu-btn__burger {
+  translate: 0 0;
+  rotate: 45deg;
+  transition: translate 150ms ease-in, rotate 150ms ease-out 150ms;
+}
+
+.menu-btn--opened .menu-btn__burger::before {
+  translate: 0 0;
+  rotate: -90deg;
+  transition: translate 150ms ease-in, rotate 150ms ease-out 150ms;
+}
+
+// ======================== HEADER ======================== //
+.header__nav {
+  @include mediaPhone {
+    display: none;
+  }
+}
+
+.nav__list {
+  display: flex;
+  list-style: none;
+  gap: 32px;
+}
+
+.nav__item {
+  transition: opacity 0.2s ease-in-out;
+
+  &:hover {
+    opacity: 0.5;
+  }
+}
+
+.nav__link {
+  color: #000;
+}

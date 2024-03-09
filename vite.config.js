@@ -1,7 +1,9 @@
 import { fileURLToPath, URL } from "node:url";
+import { resolve } from "node:path";
 
 import { defineConfig } from "vite";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
+import handlebars from "vite-plugin-handlebars";
 
 export default defineConfig({
   plugins: [
@@ -16,12 +18,10 @@ export default defineConfig({
         quality: 70,
       },
     }),
+    handlebars({
+      partialDirectory: resolve("./src/partials"),
+    }),
   ],
-  resolve: {
-    alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
-    },
-  },
   root: "src",
   build: {
     outDir: "../dist",
