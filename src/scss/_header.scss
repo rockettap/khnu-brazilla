@@ -17,7 +17,7 @@
 }
 
 .header__logo {
-  display: inline-block;
+  display: inline-flex;
   margin-right: 16px;
 }
 
@@ -30,11 +30,11 @@
   position: relative;
   display: none;
   width: 28px;
-  height: 28px;
-  align-items: center;
-  justify-content: center;
+  height: 18px;
 
   &::after {
+    top: -13px;
+    left: -8px;
     position: absolute;
     content: "";
     width: 44px;
@@ -51,7 +51,6 @@
   width: 28px;
   height: 3px;
   background: #000;
-  translate: 0 -5px;
   transition: translate 150ms ease-out 150ms, rotate 150ms ease-in;
 }
 
@@ -61,12 +60,12 @@
   width: 28px;
   height: 3px;
   background: #000;
-  translate: 0 10px;
+  translate: 0 15px;
   transition: translate 150ms ease-out 150ms, rotate 150ms ease-in;
 }
 
 .menu-btn--opened .menu-btn__burger {
-  translate: 0 0;
+  translate: 0 7.5px;
   rotate: 45deg;
   transition: translate 150ms ease-in, rotate 150ms ease-out 150ms;
 }
