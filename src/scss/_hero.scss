@@ -1,0 +1,46 @@
+.hero {
+  padding: 208px 0 128px 0;
+  color: #fff;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.6)),
+    url("/img/tim-mossholder-YC6RVdoTtIk-unsplash.jpg") center / cover;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+
+  &__container {
+    flex: 1;
+
+    @include mediaPhone {
+      flex: 0 1 auto;
+    }
+  }
+}
+
+.hero__title {
+  letter-spacing: 0.48px;
+  font-weight: normal;
+  font-size: 48px;
+  line-height: 1.125;
+  max-width: 496px;
+  margin-bottom: 32px;
+
+  @include mediaPhone {
+    font-size: 32px;
+    text-align: center;
+  }
+}
+
+.hero__description {
+  margin-bottom: 32px;
+  max-width: 496px;
+
+  @include mediaPhone {
+    text-align: center;
+  }
+}
+
+.hero__btn {
+  @include mediaPhone {
+    width: 100%;
+  }
+}

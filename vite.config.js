@@ -1,4 +1,3 @@
-import { fileURLToPath, URL } from "node:url";
 import { resolve } from "node:path";
 
 import { defineConfig } from "vite";
@@ -23,8 +22,16 @@ export default defineConfig({
     }),
   ],
   root: "src",
+  base: "/khnu-brazilla/",
   build: {
     outDir: "../dist",
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, "./src/index.html"),
+        admin: resolve(__dirname, "./src/admin/index.html"),
+        products: resolve(__dirname, "./src/products/index.html"),
+      },
+    },
   },
   publicDir: "../public",
 });

@@ -1,9 +1,11 @@
 import "ress";
 import "/scss/main.scss";
 
-const menuButton = document.getElementById("menuButton");
+const menuBtn = document.getElementById("menu-btn");
+const headerNav = document.getElementById("header-nav");
 
-menuButton.addEventListener("click", function () {
+menuBtn.addEventListener("click", function () {
   this.classList.toggle("menu-btn--opened");
+  headerNav.classList.toggle("header__nav--opened");
   document.body.classList.toggle("scroll-lock");
 });

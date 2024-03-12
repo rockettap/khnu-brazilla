@@ -1,6 +1,7 @@
 body {
   font-family: system-ui, sans-serif;
   font-weight: normal;
+  line-height: 1.5;
 }
 
 a {
@@ -19,4 +20,19 @@ img {
 
 .scroll-lock {
   overflow: hidden;
+}
+
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  padding: 12px 24px;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 8px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    color: #000;
+    background-color: #fff;
+  }
 }
