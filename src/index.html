@@ -6,6 +6,12 @@
     <script defer type="module" src="/main.js"></script>
     <title>Brazilla</title>
     <link rel="icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     {{> header }}
@@ -13,13 +19,54 @@
       <section class="hero">
         <div class="container hero__container">
           <h1 class="hero__title">
-            Обираємо найкращі зерна з Латинської Америки
+            Відбираємо найкращі зерна з Латинської Америки
           </h1>
           <p class="hero__description">
-            Наша місія — подарувати Вашому кавовому досвіду неперевершений смак
-            і аромат
+            Наша місія - подарувати вам неперевершений смак і аромат кави
           </p>
           <a href="#products" class="btn hero__btn">Наші бленди</a>
+        </div>
+      </section>
+
+      <section class="advantages">
+        <div class="container advantages__container">
+          <h2 class="advantages__title">Наші переваги</h2>
+          <ul class="advantages__list">
+            <li class="advantages__item">
+              <img
+                src="/img/coffee_maker_FILL0_wght400_GRAD0_opsz48.svg"
+                alt=""
+                class="advantages-item__icon"
+              />
+              <h3 class="advantages-item__title">
+                Самі обсмажуємо, перемелюємо і міксуємо
+              </h3>
+            </li>
+            <li class="advantages__item">
+              <img
+                src="/img/star_rate_FILL0_wght400_GRAD0_opsz48.svg"
+                alt=""
+                class="advantages-item__icon"
+              />
+              <h3 class="advantages-item__title">Гарантуємо високу якість</h3>
+            </li>
+            <li class="advantages__item">
+              <img
+                src="/img/local_shipping_FILL0_wght400_GRAD0_opsz48.svg"
+                alt=""
+                class="advantages-item__icon"
+              />
+              <h3 class="advantages-item__title">Доставка по всій Україні</h3>
+            </li>
+            <li class="advantages__item">
+              <img
+                src="/img/forum_FILL0_wght400_GRAD0_opsz48.svg"
+                alt=""
+                class="advantages-item__icon"
+              />
+              <h3 class="advantages-item__title">Завжди готові допомогти</h3>
+            </li>
+          </ul>
         </div>
       </section>
     </main>
