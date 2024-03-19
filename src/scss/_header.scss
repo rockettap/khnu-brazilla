@@ -1,6 +1,7 @@
 // ======================== HEADER ======================== //
 .header {
   position: fixed;
+  z-index: 99;
   left: 0;
   top: 0;
   right: 0;
@@ -27,7 +28,7 @@
 
 // ======================== MENU BTN ======================== //
 .menu-btn {
-  z-index: 99;
+  z-index: 1;
   position: relative;
   display: none;
   width: 28px;
