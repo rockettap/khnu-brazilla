@@ -16,6 +16,9 @@ export default defineConfig({
       jpg: {
         quality: 70,
       },
+      webp: {
+        quality: 70,
+      },
     }),
     handlebars({
       partialDirectory: resolve("./src/partials"),

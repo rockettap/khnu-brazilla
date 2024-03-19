@@ -25,6 +25,16 @@ h6 {
   line-height: 1.2;
 }
 
+h2 {
+  font-size: 40px;
+  letter-spacing: 0.4px;
+  text-align: center;
+
+  @include mediaPhone {
+    font-size: 32px;
+  }
+}
+
 .container {
   max-width: 1152px;
   padding: 0 16px;
