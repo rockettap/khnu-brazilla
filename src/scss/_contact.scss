@@ -1,0 +1,71 @@
+.contact {
+  padding: 128px 0;
+
+  @include mediaPhone {
+    padding: 102.4px 0;
+  }
+}
+
+.contact__title {
+  margin-bottom: 48px;
+
+  @include mediaPhone {
+    margin-bottom: 38.4px;
+  }
+}
+
+form {
+  max-width: 746.66px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+label {
+  display: flex;
+  gap: 6px;
+  flex-direction: column;
+
+  span::after {
+    content: " *";
+    color: #f00;
+  }
+}
+
+input,
+textarea {
+  display: block;
+  border: 2px solid #000;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+textarea {
+  min-height: 92px;
+  max-height: 236px;
+}
+
+a,
+button,
+input,
+textarea {
+  outline-offset: 0px;
+  outline: 0px solid rgba($color: #007aff, $alpha: 0);
+  transition-property: outline-offset, outline;
+  transition-duration: 0.2s;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus,
+textarea:focus {
+  outline-offset: 3px;
+  outline: 3px solid rgba($color: #007aff, $alpha: 1);
+}
+
+.contact__btn {
+  @include mediaPhone {
+    width: 100%;
+  }
+}

@@ -6,10 +6,18 @@
     align-items: center;
     flex-direction: column;
   }
+
+  @include mediaPhone {
+    padding: 102.4px 0;
+  }
 }
 
 .advantages__title {
   margin-bottom: 48px;
+
+  @include mediaPhone {
+    margin-bottom: 38.4px;
+  }
 }
 
 .advantages__list {

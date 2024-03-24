@@ -58,10 +58,23 @@ h2 {
   color: #fff;
   border: 2px solid #fff;
   border-radius: 8px;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition-property: background-color, color, outline-offset, outline, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
 
   &:hover {
     color: #000;
     background-color: #fff;
+  }
+
+  &--reversed {
+    color: #000;
+    border-color: #000;
+
+    &:hover {
+      color: inherit;
+      border-color: inherit;
+      opacity: 0.5;
+    }
   }
 }
