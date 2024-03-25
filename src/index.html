@@ -105,7 +105,13 @@
                   data-aos-delay="100"
                   data-aos-anchor=".products__title"
                 >
-                  Slide 1
+                  <img
+                    srcset="/img/1.webp, /img/1@2x.webp 2x"
+                    src="/img/1.webp"
+                    alt="Пакет кави"
+                  />
+                  <h3 class="swiper-slide__title">Бленд 1</h3>
+                  <h4 class="swiper-slide__price">₴499.99</h4>
                 </div>
               </div>
               <div class="swiper-slide">
@@ -115,7 +121,13 @@
                   data-aos-delay="200"
                   data-aos-anchor=".products__title"
                 >
-                  Slide 2
+                  <img
+                    srcset="/img/2.webp, /img/2@2x.webp 2x"
+                    src="/img/2.webp"
+                    alt="Пакет кави"
+                  />
+                  <h3 class="swiper-slide__title">Бленд 2</h3>
+                  <h4 class="swiper-slide__price">₴299.99</h4>
                 </div>
               </div>
               <div class="swiper-slide">
@@ -125,7 +137,13 @@
                   data-aos-delay="300"
                   data-aos-anchor=".products__title"
                 >
-                  Slide 3
+                  <img
+                    srcset="/img/3.webp, /img/3@2x.webp 2x"
+                    src="/img/3.webp"
+                    alt="Пакет кави"
+                  />
+                  <h3 class="swiper-slide__title">Бленд 3</h3>
+                  <h4 class="swiper-slide__price">₴799.99</h4>
                 </div>
               </div>
               <div class="swiper-slide">
@@ -135,7 +153,18 @@
                   data-aos-delay="400"
                   data-aos-anchor=".products__title"
                 >
-                  Скоро...
+                  <div
+                    style="
+                      height: 100%;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                      background-color: #fff;
+                      border-radius: 8px;
+                    "
+                  >
+                    Скоро...
+                  </div>
                 </div>
               </div>
               <div class="swiper-slide">
@@ -145,7 +174,18 @@
                   data-aos-delay="500"
                   data-aos-anchor=".products__title"
                 >
-                  Скоро...
+                  <div
+                    style="
+                      height: 100%;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                      background-color: #fff;
+                      border-radius: 8px;
+                    "
+                  >
+                    Скоро...
+                  </div>
                 </div>
               </div>
               <div class="swiper-slide">
@@ -155,7 +195,18 @@
                   data-aos-delay="600"
                   data-aos-anchor=".products__title"
                 >
-                  Скоро...
+                  <div
+                    style="
+                      height: 100%;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                      background-color: #fff;
+                      border-radius: 8px;
+                    "
+                  >
+                    Скоро...
+                  </div>
                 </div>
               </div>
             </div>
@@ -164,7 +215,23 @@
         </div>
       </section>
 
-      <section class="contact">
+      <section class="location">
+        <div class="container location__container">
+          <h2 class="location__title" data-aos="fade-down">Місцезнаходження</h2>
+          <iframe
+            data-aos="fade-up"
+            data-aos-anchor=".location__title"
+            width="100%"
+            height="454"
+            style="border: 0; border-radius: 8px"
+            loading="lazy"
+            allowfullscreen
+            src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJixe7REMGMkcRZMnZJDsL89k&key=AIzaSyBQw9OAB357kU7Z_EYgxzQOXKTZIlV0U_g"
+          ></iframe>
+        </div>
+      </section>
+
+      <footer class="contact">
         <div class="container contact__container">
           <h2 class="contact__title" data-aos="fade-down">
             Потрібна допомога?
@@ -216,7 +283,7 @@
             </div>
           </form>
         </div>
-      </section>
+      </footer>
     </main>
   </body>
 </html>

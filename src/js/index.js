@@ -8,6 +8,8 @@ import "swiper/css/pagination";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+import "/scss/_slider.scss";
+
 AOS.init();
 
 new Swiper(".mySwiper", {

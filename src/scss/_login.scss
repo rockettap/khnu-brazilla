@@ -1,0 +1,29 @@
+.login {
+  padding: 96px 0 16px 0;
+
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+
+  &__container {
+    flex: 1;
+
+    @include mediaPhone {
+      flex: 0 1 auto;
+    }
+  }
+
+  &--disable {
+    min-height: initial;
+    display: block;
+    align-items: initial;
+
+    &__container {
+      flex: initial;
+
+      @include mediaPhone {
+        flex: initial;
+      }
+    }
+  }
+}
