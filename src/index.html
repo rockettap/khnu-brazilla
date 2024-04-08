@@ -33,62 +33,11 @@
         <div class="container advantages__container">
           <h2 class="advantages__title" data-aos="fade-down">Наші переваги</h2>
           <ul class="advantages__list">
-            <li
-              class="advantages__item"
-              data-aos="fade-up"
-              data-aos-delay="100"
-              data-aos-anchor=".advantages__title"
-            >
-              <img
-                src="/img/coffee_maker_FILL0_wght400_GRAD0_opsz48.svg"
-                alt=""
-                class="advantages-item__icon"
-              />
-              <h3 class="advantages-item__title">
-                Самі обсмажуємо, перемелюємо і міксуємо
-              </h3>
-            </li>
-            <li
-              class="advantages__item"
-              data-aos="fade-up"
-              data-aos-delay="200"
-              data-aos-anchor=".advantages__title"
-            >
-              <img
-                src="/img/star_rate_FILL0_wght400_GRAD0_opsz48.svg"
-                alt=""
-                class="advantages-item__icon"
-              />
-              <h3 class="advantages-item__title">Гарантуємо високу якість</h3>
-            </li>
-            <li
-              class="advantages__item"
-              data-aos="fade-up"
-              data-aos-delay="300"
-              data-aos-anchor=".advantages__title"
-            >
-              <img
-                src="/img/local_shipping_FILL0_wght400_GRAD0_opsz48.svg"
-                alt=""
-                class="advantages-item__icon"
-              />
-              <h3 class="advantages-item__title">
-                Безкоштовна доставка по всій Україні
-              </h3>
-            </li>
-            <li
-              class="advantages__item"
-              data-aos="fade-up"
-              data-aos-delay="400"
-              data-aos-anchor=".advantages__title"
-            >
-              <img
-                src="/img/forum_FILL0_wght400_GRAD0_opsz48.svg"
-                alt=""
-                class="advantages-item__icon"
-              />
-              <h3 class="advantages-item__title">Завжди готові допомогти</h3>
-            </li>
+            <!-- prettier-ignore -->
+            {{> advantages_item delay="100" icon="/img/coffee_maker_FILL0_wght400_GRAD0_opsz48.svg" title="Самі обсмажуємо, перемелюємо і міксуємо"}}
+            {{> advantages_item delay="200" icon="/img/star_rate_FILL0_wght400_GRAD0_opsz48.svg" title="Гарантуємо високу якість"}}
+            {{> advantages_item delay="300" icon="/img/local_shipping_FILL0_wght400_GRAD0_opsz48.svg" title="Безкоштовна доставка по всій Україні"}}
+            {{> advantages_item delay="400" icon="/img/forum_FILL0_wght400_GRAD0_opsz48.svg" title="Завжди готові допомогти"}}
           </ul>
         </div>
       </section>
@@ -102,55 +51,6 @@
                 <div
                   class="swiper-slide__inner"
                   data-aos="fade-up"
-                  data-aos-delay="100"
-                  data-aos-anchor=".products__title"
-                >
-                  <img
-                    srcset="/img/1.webp, /img/1@2x.webp 2x"
-                    src="/img/1.webp"
-                    alt="Пакет кави"
-                  />
-                  <h3 class="swiper-slide__title">Бленд 1</h3>
-                  <h4 class="swiper-slide__price">₴499.99</h4>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div
-                  class="swiper-slide__inner"
-                  data-aos="fade-up"
-                  data-aos-delay="200"
-                  data-aos-anchor=".products__title"
-                >
-                  <img
-                    srcset="/img/2.webp, /img/2@2x.webp 2x"
-                    src="/img/2.webp"
-                    alt="Пакет кави"
-                  />
-                  <h3 class="swiper-slide__title">Бленд 2</h3>
-                  <h4 class="swiper-slide__price">₴299.99</h4>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div
-                  class="swiper-slide__inner"
-                  data-aos="fade-up"
-                  data-aos-delay="300"
-                  data-aos-anchor=".products__title"
-                >
-                  <img
-                    srcset="/img/3.webp, /img/3@2x.webp 2x"
-                    src="/img/3.webp"
-                    alt="Пакет кави"
-                  />
-                  <h3 class="swiper-slide__title">Бленд 3</h3>
-                  <h4 class="swiper-slide__price">₴799.99</h4>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div
-                  class="swiper-slide__inner"
-                  data-aos="fade-up"
-                  data-aos-delay="400"
                   data-aos-anchor=".products__title"
                 >
                   <div
@@ -171,7 +71,6 @@
                 <div
                   class="swiper-slide__inner"
                   data-aos="fade-up"
-                  data-aos-delay="500"
                   data-aos-anchor=".products__title"
                 >
                   <div
@@ -192,7 +91,6 @@
                 <div
                   class="swiper-slide__inner"
                   data-aos="fade-up"
-                  data-aos-delay="600"
                   data-aos-anchor=".products__title"
                 >
                   <div
@@ -223,7 +121,6 @@
             data-aos-anchor=".location__title"
             width="100%"
             height="454"
-            style="border: 0; border-radius: 8px"
             loading="lazy"
             allowfullscreen
             src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJixe7REMGMkcRZMnZJDsL89k&key=AIzaSyBQw9OAB357kU7Z_EYgxzQOXKTZIlV0U_g"

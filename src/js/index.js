@@ -12,7 +12,7 @@ import "/scss/_slider.scss";
 
 AOS.init();
 
-new Swiper(".mySwiper", {
+const swiper = new Swiper(".mySwiper", {
   modules: [Navigation, Pagination],
   slidesPerView: 1,
   spaceBetween: 24,
@@ -64,7 +64,48 @@ form.addEventListener("submit", (e) => {
     })
     .then((data) => {
       console.log(data.message);
+      name.value = "";
+      email.value = "";
+      message.value = "";
       alert(data.message);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
+const slider = document.querySelector(".swiper-wrapper");
+document.addEventListener("DOMContentLoaded", (e) => {
+  fetch("http://localhost/api/products/")
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data.products);
+      if (data.products) {
+        for (const product of data.products) {
+          // prettier-ignore
+          const newSlide = `
+          <div class="swiper-slide">
+              <div
+                class="swiper-slide__inner"
+                data-aos="fade-up"
+                data-aos-anchor=".products__title"
+              >
+                <img
+                  src="http://localhost/api/products/${product.file}"
+                  alt="Пакет кави"
+                />
+                <h3 class="swiper-slide__title">
+                  <a href="http://localhost:5173/khnu-brazilla/products/?id=${product.id}">${product.name}</a>
+                </h3>
+                <h4 class="swiper-slide__price">₴${product.price}</h4>
+              </div>
+            </div>`;
+          slider.insertAdjacentHTML("afterbegin", newSlide);
+        }
+      }
+      swiper.update();
     })
     .catch((error) => {
       console.log(error);
