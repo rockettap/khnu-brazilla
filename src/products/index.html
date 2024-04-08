@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -13,12 +13,36 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap"
       rel="stylesheet"
     />
+    <style>
+      .root__container {
+        flex: 0 1 auto;
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+
+      .card {
+        flex: 1 0;
+        display: block;
+        padding: 32px;
+        outline: 3px solid red;
+        min-width: 256px;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+        align-items: flex-start;
+      }
+    </style>
   </head>
   <body>
     {{> header }}
-    <main class="main" style="margin-top: 96px">
+    <main class="main" style="margin-top: 96px; margin-bottom: 16px">
       <section class="root">
-        <div class="container root__container"></div>
+        <div class="container root2__container">
+          <h2 style="line-height: 3">Товари</h2>
+          <div class="root__container"></div>
+        </div>
       </section>
     </main>
   </body>

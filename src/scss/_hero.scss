@@ -1,11 +1,13 @@
 .hero {
   padding: 208px 0 128px 0;
   color: #fff;
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 1)),
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 1)),
     url("/img/tim-mossholder-YC6RVdoTtIk-unsplash.webp") center / cover;
 
   @media (min-resolution: 2dppx) {
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 1)),
+    background:
+      linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 1)),
       url("/img/tim-mossholder-YC6RVdoTtIk-unsplash@2x.webp") center / cover;
   }
 

@@ -1,17 +1,21 @@
 const loginSection = document.querySelector(".login");
 const loginSectionContainer = document.querySelector(".login__container");
 
+let executed = false;
+
 function getMessages() {
   fetch("http://localhost/api/contacts/", {
     method: "GET",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-    },
     credentials: "include",
   })
     .then((response) => {
       if (response.status !== 401) {
-        loginSectionContainer.innerHTML = `
+        if (!executed) {
+          loginSectionContainer.innerHTML = "";
+          executed = true;
+        }
+        loginSectionContainer.innerHTML += `
+          <h2 style="line-height: 3">Допомога</h2>
           <div style="overflow-x: auto">
             <table>
               <thead>
@@ -22,7 +26,7 @@ function getMessages() {
                   <th scope="col">Час</th>
                 </tr>
               </thead>
-              <tbody id="table"></tbody>
+              <tbody id="table1"></tbody>
             </table>
           </div>`;
         loginSection.classList.add("login--disable");
@@ -33,7 +37,7 @@ function getMessages() {
       console.log(data.message);
       if (data.messages) {
         for (const message of data.messages) {
-          table.innerHTML += `
+          table1.innerHTML += `
             <tr>
               <td>${message.name}</td>
               <td>${message.email}</td>
@@ -48,6 +52,58 @@ function getMessages() {
     });
 }
 getMessages();
+
+function getOrders() {
+  fetch("http://localhost/api/orders/", {
+    method: "GET",
+    credentials: "include",
+  })
+    .then((response) => {
+      if (response.status !== 401) {
+        if (!executed) {
+          loginSectionContainer.innerHTML = "";
+          executed = true;
+        }
+        loginSectionContainer.innerHTML += `
+          <h2 style="line-height: 3">Замовлення</h2>
+          <div style="overflow-x: auto">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Ім'я</th>
+                  <th scope="col">Пошта</th>
+                  <th scope="col">Поштовий індекс</th>
+                  <th scope="col">Товари</th>
+                </tr>
+              </thead>
+              <tbody id="table2"></tbody>
+            </table>
+          </div>`;
+        loginSection.classList.add("login--disable");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data.message);
+      if (data.orders) {
+        for (const order of data.orders) {
+          // prettier-ignore
+          const products = order.products.map((product) => `<a href="/khnu-brazilla/products/?id=${product.id}">${product.name}</a>`).join(", ");
+          table2.innerHTML += `
+            <tr>
+              <td>${order.name}</td>
+              <td>${order.email}</td>
+              <td>${order.postcode}</td>
+              <td>${products}</td>
+            </tr>`;
+        }
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+getOrders();
 
 const username = document.getElementById("username");
 const password = document.getElementById("password");
@@ -80,6 +136,7 @@ form.addEventListener("submit", (e) => {
     .then((response) => {
       if (response.status === 200) {
         getMessages();
+        getOrders();
       }
       return response.json();
     })
