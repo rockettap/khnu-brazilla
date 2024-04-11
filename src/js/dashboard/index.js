@@ -51,7 +51,63 @@ function getMessages() {
       console.log(error);
     });
 }
-getMessages();
+
+function getCreateForm() {
+  loginSectionContainer.innerHTML += `
+    <form id="form2">
+      <p>
+        <label>
+          <span>Ім'я</span>
+          <input type="text" name="name" id="name" required />
+        </label>
+      </p>
+      <p>
+        <label>
+          <span>Ціна</span>
+          <input type="number" name="price" id="price" required />
+        </label>
+      </p>
+      <p>
+        <label>
+          <span>Опис</span>
+          <textarea name="description" id="description" rows="3" required></textarea>
+        </label>
+      </p>
+      <p>
+        <label>
+          <span>Файл</span>
+          <input type="file" name="file" id="file" required />
+        </label>
+      </p>
+      <div>
+        <button type="submit" class="btn btn--reversed contact__btn">
+          Відправити
+        </button>
+      </div>
+    </form>`;
+
+  loginSectionContainer.addEventListener("submit", function (e) {
+    if (e.target && e.target.id === "form2") {
+      e.preventDefault(); // Prevent default form submission
+
+      // Extract form data
+      const formData = new FormData(e.target);
+
+      // Construct request options
+      const requestOptions = {
+        method: "POST",
+        body: formData,
+        credentials: "include",
+      };
+
+      // Send form data to server
+      fetch("http://localhost:80/api/products/", requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.error(error));
+    }
+  });
+}
 
 function getOrders() {
   fetch("http://localhost/api/orders/", {
@@ -64,6 +120,7 @@ function getOrders() {
           loginSectionContainer.innerHTML = "";
           executed = true;
         }
+        getCreateForm();
         loginSectionContainer.innerHTML += `
           <h2 style="line-height: 3">Замовлення</h2>
           <div style="overflow-x: auto">

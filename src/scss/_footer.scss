@@ -1,0 +1,19 @@
+.footer {
+  background-color: #151716;
+  padding: 32px 0;
+  color: #fff;
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.footer__link {
+  color: #8ab4f8;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.5;
+  }
+}
