@@ -1,17 +1,17 @@
-const loginSection = document.querySelector(".login");
-const loginSectionContainer = document.querySelector(".login__container");
+const loginSection = document.querySelector('.login');
+const loginSectionContainer = document.querySelector('.login__container');
 
 let executed = false;
 
 function getMessages() {
-  fetch("http://localhost/api/contacts/", {
-    method: "GET",
-    credentials: "include",
+  fetch('http://localhost/api/contacts/', {
+    method: 'GET',
+    credentials: 'include'
   })
     .then((response) => {
       if (response.status !== 401) {
         if (!executed) {
-          loginSectionContainer.innerHTML = "";
+          loginSectionContainer.innerHTML = '';
           executed = true;
         }
         loginSectionContainer.innerHTML += `
@@ -29,7 +29,7 @@ function getMessages() {
               <tbody id="table1"></tbody>
             </table>
           </div>`;
-        loginSection.classList.add("login--disable");
+        loginSection.classList.add('login--disable');
       }
       return response.json();
     })
@@ -86,8 +86,8 @@ function getCreateForm() {
       </div>
     </form>`;
 
-  loginSectionContainer.addEventListener("submit", function (e) {
-    if (e.target && e.target.id === "form2") {
+  loginSectionContainer.addEventListener('submit', function (e) {
+    if (e.target && e.target.id === 'form2') {
       e.preventDefault(); // Prevent default form submission
 
       // Extract form data
@@ -95,13 +95,13 @@ function getCreateForm() {
 
       // Construct request options
       const requestOptions = {
-        method: "POST",
+        method: 'POST',
         body: formData,
-        credentials: "include",
+        credentials: 'include'
       };
 
       // Send form data to server
-      fetch("http://localhost:80/api/products/", requestOptions)
+      fetch('http://localhost:80/api/products/', requestOptions)
         .then((response) => response.text())
         .then((result) => console.log(result))
         .catch((error) => console.error(error));
@@ -110,14 +110,14 @@ function getCreateForm() {
 }
 
 function getOrders() {
-  fetch("http://localhost/api/orders/", {
-    method: "GET",
-    credentials: "include",
+  fetch('http://localhost/api/orders/', {
+    method: 'GET',
+    credentials: 'include'
   })
     .then((response) => {
       if (response.status !== 401) {
         if (!executed) {
-          loginSectionContainer.innerHTML = "";
+          loginSectionContainer.innerHTML = '';
           executed = true;
         }
         getCreateForm();
@@ -136,7 +136,7 @@ function getOrders() {
               <tbody id="table2"></tbody>
             </table>
           </div>`;
-        loginSection.classList.add("login--disable");
+        loginSection.classList.add('login--disable');
       }
       return response.json();
     })
@@ -162,33 +162,33 @@ function getOrders() {
 }
 getOrders();
 
-const username = document.getElementById("username");
-const password = document.getElementById("password");
-const form = document.getElementById("form");
+const username = document.getElementById('username');
+const password = document.getElementById('password');
+const form = document.getElementById('form');
 
-form.addEventListener("submit", (e) => {
+form.addEventListener('submit', (e) => {
   e.preventDefault();
 
   const details = {
     username: username.value,
-    password: password.value,
+    password: password.value
   };
 
   let formBody = [];
   for (const property in details) {
     const encodedKey = encodeURIComponent(property);
     const encodedValue = encodeURIComponent(details[property]);
-    formBody.push(encodedKey + "=" + encodedValue);
+    formBody.push(encodedKey + '=' + encodedValue);
   }
-  formBody = formBody.join("&");
+  formBody = formBody.join('&');
 
-  fetch("http://localhost/api/login/", {
-    method: "POST",
+  fetch('http://localhost/api/login/', {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
     },
-    credentials: "include",
-    body: formBody,
+    credentials: 'include',
+    body: formBody
   })
     .then((response) => {
       if (response.status === 200) {

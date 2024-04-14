@@ -1,9 +1,9 @@
-const rootSection = document.querySelector(".root");
-const rootSectionContainer = document.querySelector(".root__container");
+const rootSection = document.querySelector('.root');
+const rootSectionContainer = document.querySelector('.root__container');
 
 function getProductByParam() {
   const urlParams = new URLSearchParams(window.location.search);
-  const id = urlParams.get("id");
+  const id = urlParams.get('id');
   if (id) {
     return { id: id, exists: true };
   } else {
@@ -12,8 +12,8 @@ function getProductByParam() {
 }
 
 function getProducts() {
-  fetch("http://localhost/api/products/", {
-    method: "GET",
+  fetch('http://localhost/api/products/', {
+    method: 'GET'
   })
     .then((response) => {
       return response.json();
@@ -37,8 +37,8 @@ function getProducts() {
 
 const paramProduct = getProductByParam();
 if (paramProduct.exists) {
-  fetch("http://localhost/api/products/", {
-    method: "GET",
+  fetch('http://localhost/api/products/', {
+    method: 'GET'
   })
     .then((response) => {
       return response.json();
@@ -56,11 +56,11 @@ if (paramProduct.exists) {
               <button onclick class="btn btn--reversed">Додати у кошик</button>
             </div>
           `;
-          const btn = document.querySelector(".btn");
-          btn.addEventListener("click", () => {
-            let basket = JSON.parse(localStorage.getItem("basket")) || [];
+          const btn = document.querySelector('.btn');
+          btn.addEventListener('click', () => {
+            let basket = JSON.parse(localStorage.getItem('basket')) || [];
             basket.push(product);
-            localStorage.setItem("basket", JSON.stringify(basket));
+            localStorage.setItem('basket', JSON.stringify(basket));
           });
           break;
         }

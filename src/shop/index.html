@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script defer type="module" src="/main.js"></script>
+    <title>Brazilla</title>
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html {
+        font-family: system-ui, sans-serif !important;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      footer {
+        margin-top: auto;
+      }
+    </style>
+  </head>
+  <body>
+    {{> header}}
+    <div id="app" style="margin: 104px 0 24px 0"></div>
+    {{> footer}}
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

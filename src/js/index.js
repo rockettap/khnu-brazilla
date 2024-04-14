@@ -1,72 +1,73 @@
-import Swiper from "swiper";
-import { Navigation, Pagination } from "swiper/modules";
+import Swiper from 'swiper';
+import { Navigation, Pagination } from 'swiper/modules';
 
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
-import AOS from "aos";
-import "aos/dist/aos.css";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
-import "/scss/_slider.scss";
+import '/scss/_slider.scss';
+import '/scss/_form.scss';
 
 AOS.init();
 
-const swiper = new Swiper(".mySwiper", {
+const swiper = new Swiper('.mySwiper', {
   modules: [Navigation, Pagination],
   slidesPerView: 1,
   spaceBetween: 24,
   pagination: {
-    el: ".swiper-pagination",
-    clickable: true,
+    el: '.swiper-pagination',
+    clickable: true
   },
   breakpoints: {
     641: {
-      slidesPerView: 2,
+      slidesPerView: 2
     },
     1081: {
-      slidesPerView: 3,
-    },
-  },
+      slidesPerView: 3
+    }
+  }
 });
 
-const name = document.getElementById("name");
-const email = document.getElementById("email");
-const message = document.getElementById("message");
-const form = document.getElementById("form");
+const name = document.getElementById('name');
+const email = document.getElementById('email');
+const message = document.getElementById('message');
+const form = document.getElementById('form');
 
-form.addEventListener("submit", (e) => {
+form.addEventListener('submit', (e) => {
   e.preventDefault();
 
   const details = {
     name: name.value,
     email: email.value,
-    message: message.value,
+    message: message.value
   };
 
   let formBody = [];
   for (const property in details) {
     const encodedKey = encodeURIComponent(property);
     const encodedValue = encodeURIComponent(details[property]);
-    formBody.push(encodedKey + "=" + encodedValue);
+    formBody.push(encodedKey + '=' + encodedValue);
   }
-  formBody = formBody.join("&");
+  formBody = formBody.join('&');
 
-  fetch("http://localhost/api/contacts/", {
-    method: "POST",
+  fetch('http://localhost/api/contacts/', {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
     },
-    body: formBody,
+    body: formBody
   })
     .then((response) => {
       return response.json();
     })
     .then((data) => {
       console.log(data.message);
-      name.value = "";
-      email.value = "";
-      message.value = "";
+      name.value = '';
+      email.value = '';
+      message.value = '';
       alert(data.message);
     })
     .catch((error) => {
@@ -74,13 +75,12 @@ form.addEventListener("submit", (e) => {
     });
 });
 
-const slider = document.querySelector(".swiper-wrapper");
-fetch("http://localhost/api/products/")
+const slider = document.querySelector('.swiper-wrapper');
+fetch('http://localhost/api/products/?page=1')
   .then((response) => {
     return response.json();
   })
   .then((data) => {
-    console.log(data.message);
     if (data.products) {
       for (const product of data.products) {
         // prettier-ignore
@@ -101,7 +101,7 @@ fetch("http://localhost/api/products/")
               <h4 class="swiper-slide__price">${product.price} ₴</h4>
             </div>
           </div>`;
-        slider.insertAdjacentHTML("afterbegin", newSlide);
+        slider.insertAdjacentHTML('afterbegin', newSlide);
       }
     }
     swiper.update();
