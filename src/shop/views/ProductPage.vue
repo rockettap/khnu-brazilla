@@ -1,5 +1,5 @@
 <template>
-  <h1 v-if="error">{{ error }}</h1>
+  <h1 class="mt-6" v-if="error">{{ error }}</h1>
   <div class="product mt-6" v-if="product">
     <v-img class="product__image" v-if="product" :src="`${API}/products/${product.file}`" cover />
     <div class="product__info">
@@ -53,6 +53,7 @@ export default {
     },
     addToCart() {
       this.loading = true;
+
       let cart = JSON.parse(localStorage.getItem('cart')) || [];
       cart.push(this.product);
       localStorage.setItem('cart', JSON.stringify(cart));

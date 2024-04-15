@@ -2,8 +2,8 @@
   <div v-if="cart.length">
     <h1 class="mt-6 mb-6">Оформлення замовлення</h1>
     <div style="display: flex; gap: 24px; flex-wrap: wrap">
-      <div style="flex: 1 0; max-width: 548px; max-width: 100%">
-        <v-form fast-fail @submit.prevent>
+      <div style="flex: 1 0; max-width: 608px; max-width: 100%">
+        <v-form fast-fail @submit.prevent v-model="valid">
           <v-text-field
             class="mb-4"
             v-model="name"
@@ -35,13 +35,14 @@
             rounded="xl"
             :loading="loading"
             @click="order"
+            :disabled="!valid"
           >
             Підтвердити замовлення
           </v-btn>
         </v-form>
       </div>
       <div
-        style="flex: 1 0; min-width: 274px; max-width: 100%; display: flex; flex-direction: column"
+        style="flex: 1 0; min-width: 281px; max-width: 100%; display: flex; flex-direction: column"
       >
         <h3 class="mb-6">{{ computedQuantity }} {{ computedQuantityPlural }}</h3>
         <v-card class="mb-4" v-for="item in computedCart">
@@ -50,9 +51,12 @@
             {{ ` — ${item.quantity} шт.` }}
           </v-card-text>
         </v-card>
-        <h3 class="mt-2">Усього — {{ computedTotal }} ₴</h3>
+        <h3 class="mt-2">Усього — {{ computedTotal.toFixed(2) }} ₴</h3>
       </div>
     </div>
+  </div>
+  <div v-else-if="success">
+    <h1 class="mt-6 mb-6">{{ success }}</h1>
   </div>
   <div v-else>
     <h1 class="mt-6 mb-6">Кошик порожній!</h1>
@@ -73,6 +77,9 @@ export default {
 
       loading: false,
 
+      valid: false,
+
+      success: null,
       error: null
     };
   },
@@ -133,7 +140,10 @@ export default {
       }
     },
     order() {
+      if (!this.valid) return;
+
       this.loading = true;
+
       const details = {
         name: this.name,
         email: this.email,
@@ -150,6 +160,10 @@ export default {
           if (data.code !== 201) {
             return;
           }
+          this.success = 'Успіх!';
+          setTimeout(() => {
+            this.success = null;
+          }, 5000);
           localStorage.removeItem('cart');
           this.cart = [];
           console.log(data);
@@ -169,7 +183,7 @@ export default {
       return pattern.test(value) || 'Введіть правильну адресу електронної пошти';
     },
     required(value) {
-      return !!value || "Поле є обов'язковим";
+      return !!value.trim() || "Поле є обов'язковим";
     }
   }
 };

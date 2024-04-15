@@ -1,19 +1,25 @@
 .footer {
   background-color: #151716;
-  padding: 32px 0;
+  padding: 24px 0;
   color: #fff;
 
   &__container {
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 }
 
 .footer__link {
-  color: #8ab4f8;
+  display: flex;
+  width: 24px;
   transition: opacity 0.2s ease;
 
   &:hover {
     opacity: 0.5;
+  }
+
+  img {
+    width: 100%;
   }
 }

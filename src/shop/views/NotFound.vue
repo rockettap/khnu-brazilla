@@ -1,5 +1,5 @@
 <template>
-  <h3>NotFound</h3>
+  <h1 class="mt-6">404 — Сторінка не знайдена.</h1>
 </template>
 
 <script>

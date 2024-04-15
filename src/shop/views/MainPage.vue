@@ -1,5 +1,5 @@
 <template>
-  <h1 v-if="error">{{ error }}</h1>
+  <h1 class="mt-6" v-if="error">{{ error }}</h1>
   <ul v-if="products.length" class="advantages__list mt-6 mb-6">
     <v-card v-for="item of products" :key="item.id">
       <v-img height="196.5" :src="`${API}/products/${item.file}`" cover></v-img>
@@ -12,7 +12,7 @@
       </v-card-item>
       <v-card-actions>
         <RouterLink :to="`product/${item.id}`">
-          <v-btn color="#007aff" variant="text" append-icon="mdi-arrow-right"> Переглянути </v-btn>
+          <v-btn color="#007aff" variant="text" append-icon="mdi-arrow-right">Переглянути</v-btn>
         </RouterLink>
       </v-card-actions>
     </v-card>
