@@ -10,7 +10,13 @@
   }
 }
 
-.footer__link {
+.footer-nav__list {
+  display: flex;
+  list-style: none;
+  gap: 24px;
+}
+
+.footer-nav__link {
   display: flex;
   width: 24px;
   transition: opacity 0.2s ease;
