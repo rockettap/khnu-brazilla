@@ -1,7 +1,7 @@
 <template>
-  <h1 class="mt-6" v-if="error">{{ error }}</h1>
-  <div class="product mt-6" v-if="product">
-    <v-img class="product__image" v-if="product" :src="`${API}/products/${product.file}`" cover />
+  <h1 class="mt-6 mb-6" v-if="error">{{ error }}</h1>
+  <div class="product mt-6" v-else-if="product">
+    <v-img class="product__image" :src="`${API}/products/${product.file}`" cover />
     <div class="product__info">
       <h1 class="mb-4">{{ product.name }}</h1>
       <h3 class="mb-4">{{ product.price }} ₴</h3>
@@ -27,6 +27,7 @@ export default {
   data() {
     return {
       API: import.meta.env.VITE_API_URL,
+
       product: null,
 
       loading: false,
@@ -47,7 +48,7 @@ export default {
           this.product = data.product;
         })
         .catch((error) => {
-          this.error = 'Помилка!';
+          this.error = error;
           console.error(error);
         });
     },

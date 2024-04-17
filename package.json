@@ -20,8 +20,10 @@
   "dependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
     "aos": "^2.3.4",
+    "pinia": "^2.1.7",
     "ress": "^5.0.2",
     "swiper": "^11.0.7",
+    "vue": "^3.4.22",
     "vue-router": "^4.3.0",
     "vuetify": "^3.5.15"
   }

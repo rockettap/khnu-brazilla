@@ -1,9 +1,10 @@
 <template>
-  <div v-if="cart.length">
+  <h1 class="mt-6 mb-6" v-if="error">{{ error }}</h1>
+  <div v-else-if="cart.length">
     <h1 class="mt-6 mb-6">Оформлення замовлення</h1>
     <div style="display: flex; gap: 24px; flex-wrap: wrap">
       <div style="flex: 1 0; max-width: 608px; max-width: 100%">
-        <v-form fast-fail @submit.prevent v-model="valid">
+        <v-form fast-fail @submit.prevent="order" v-model="valid">
           <v-text-field
             class="mb-4"
             v-model="name"
@@ -34,7 +35,6 @@
             variant="flat"
             rounded="xl"
             :loading="loading"
-            @click="order"
             :disabled="!valid"
           >
             Підтвердити замовлення
@@ -55,12 +55,14 @@
       </div>
     </div>
   </div>
-  <div v-else-if="success">
-    <h1 class="mt-6 mb-6">{{ success }}</h1>
-  </div>
-  <div v-else>
-    <h1 class="mt-6 mb-6">Кошик порожній!</h1>
-  </div>
+  <template v-else>
+    <div v-if="success">
+      <h1 class="mt-6 mb-6">{{ success }}</h1>
+    </div>
+    <div v-else>
+      <h1 class="mt-6 mb-6">Кошик порожній!</h1>
+    </div>
+  </template>
 </template>
 
 <script>
@@ -135,7 +137,7 @@ export default {
       try {
         this.cart = JSON.parse(localStorage.getItem('cart')) || [];
       } catch (error) {
-        this.error = 'Помилка!';
+        this.error = error;
         console.error(error);
       }
     },
@@ -158,18 +160,20 @@ export default {
         .then((response) => response.json())
         .then((data) => {
           if (data.code !== 201) {
+            this.error = `${data.code} — ${data.message}`;
             return;
           }
+
           this.success = 'Успіх!';
           setTimeout(() => {
             this.success = null;
           }, 5000);
+
           localStorage.removeItem('cart');
           this.cart = [];
-          console.log(data);
         })
         .catch((error) => {
-          // this.error = 'Помилка!';
+          this.error = error;
           console.error(error);
         })
         .finally(() => {

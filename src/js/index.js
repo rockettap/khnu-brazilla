@@ -96,7 +96,7 @@ fetch('http://localhost/api/products/?page=1')
                 alt="Пакет кави"
               />
               <h3 class="swiper-slide__title">
-                <a href="products/?id=${product.id}">${product.name}</a>
+                <a href="shop/#/product/${product.id}">${product.name}</a>
               </h3>
               <h4 class="swiper-slide__price">${product.price} ₴</h4>
             </div>
