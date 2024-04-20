@@ -1,6 +1,15 @@
 <template>
-  <h1 class="mt-6" v-if="error">{{ error }}</h1>
-  <v-sheet v-else class="mx-auto mt-6" max-width="746.66">
+  <h1 v-if="error">{{ error }}</h1>
+  <v-sheet v-else-if="createdLoading" style="display: flex">
+    <v-progress-circular
+      class="mx-auto"
+      :size="96"
+      :width="8"
+      color="#007aff"
+      indeterminate
+    ></v-progress-circular>
+  </v-sheet>
+  <v-sheet v-else-if="!createdLoading || loading" class="mx-auto" max-width="746.66">
     <v-form fast-fail @submit.prevent="login" v-model="valid">
       <v-text-field
         class="mb-4"
@@ -45,9 +54,10 @@ export default {
       username: '',
       password: '',
 
-      loading: false,
-
       valid: false,
+
+      createdLoading: true,
+      loading: false,
 
       error: null
     };
@@ -55,9 +65,7 @@ export default {
   methods: {
     login() {
       if (!this.valid) return;
-
       this.loading = true;
-
       const formData = new URLSearchParams();
       formData.append('username', this.username);
       formData.append('password', this.password);
@@ -76,12 +84,9 @@ export default {
             store.isAdmin = false;
             return;
           }
-
           store.isAdmin = true;
-
           this.getContacts();
           this.getOrders();
-
           if (this.$route.path === '/login') this.$router.push('/admin');
         })
         .catch((error) => {
@@ -99,15 +104,15 @@ export default {
         .then((data) => {
           if (data.code !== 200) {
             store.isAdmin = false;
+            this.createdLoading = false;
             return;
           }
-
           store.isAdmin = true;
           if (data.messages) store.contactItems = data.messages;
-
           if (this.$route.path === '/login') this.$router.push('/admin');
         })
         .catch((error) => {
+          this.createdLoading = false;
           console.error(error);
         });
     },
@@ -119,15 +124,15 @@ export default {
         .then((data) => {
           if (data.code !== 200) {
             store.isAdmin = false;
+            this.createdLoading = false;
             return;
           }
-
           store.isAdmin = true;
           if (data.orders) store.orderItems = data.orders;
-
           if (this.$route.path === '/login') this.$router.push('/admin');
         })
         .catch((error) => {
+          this.createdLoading = false;
           console.error(error);
         });
     },
@@ -136,8 +141,14 @@ export default {
     }
   },
   created() {
+    const appElement = document.getElementById('app');
+    appElement.style.marginTop = 'auto';
     this.getContacts();
     this.getOrders();
+  },
+  beforeUnmount() {
+    const appElement = document.getElementById('app');
+    appElement.style.marginTop = '';
   }
 };
 </script>

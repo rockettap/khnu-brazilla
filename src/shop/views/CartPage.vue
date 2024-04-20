@@ -1,7 +1,7 @@
 <template>
-  <h1 class="mt-6 mb-6" v-if="error">{{ error }}</h1>
+  <h1 v-if="error">{{ error }}</h1>
   <div v-else-if="cart.length">
-    <h1 class="mt-6 mb-6">Оформлення замовлення</h1>
+    <h1 class="mb-6">Оформлення замовлення</h1>
     <div style="display: flex; gap: 24px; flex-wrap: wrap">
       <div style="flex: 1 0; max-width: 608px; max-width: 100%">
         <v-form fast-fail @submit.prevent="order" v-model="valid">
@@ -57,10 +57,10 @@
   </div>
   <template v-else>
     <div v-if="success">
-      <h1 class="mt-6 mb-6">{{ success }}</h1>
+      <h1>{{ success }}</h1>
     </div>
     <div v-else>
-      <h1 class="mt-6 mb-6">Кошик порожній!</h1>
+      <h1>Кошик порожній!</h1>
     </div>
   </template>
 </template>
@@ -77,9 +77,9 @@ export default {
       email: '',
       postcode: '',
 
-      loading: false,
-
       valid: false,
+
+      loading: false,
 
       success: null,
       error: null
@@ -163,14 +163,12 @@ export default {
             this.error = `${data.code} — ${data.message}`;
             return;
           }
-
+          localStorage.removeItem('cart');
+          this.cart = [];
           this.success = 'Успіх!';
           setTimeout(() => {
             this.success = null;
           }, 5000);
-
-          localStorage.removeItem('cart');
-          this.cart = [];
         })
         .catch((error) => {
           this.error = error;

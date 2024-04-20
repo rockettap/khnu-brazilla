@@ -1,3 +1,7 @@
+import Accordion from 'accordion-js';
+
+import 'accordion-js/dist/accordion.min.css';
+
 import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
 
@@ -12,6 +16,8 @@ import '/scss/_slider.scss';
 import '/scss/_form.scss';
 
 AOS.init();
+
+new Accordion('.accordion-container');
 
 const swiper = new Swiper('.mySwiper', {
   modules: [Navigation, Pagination],
@@ -53,7 +59,7 @@ form.addEventListener('submit', (e) => {
   }
   formBody = formBody.join('&');
 
-  fetch('http://localhost/api/contacts/', {
+  fetch(`${import.meta.env.VITE_API_URL}/contacts/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
@@ -64,19 +70,18 @@ form.addEventListener('submit', (e) => {
       return response.json();
     })
     .then((data) => {
-      console.log(data.message);
       name.value = '';
       email.value = '';
       message.value = '';
       alert(data.message);
     })
     .catch((error) => {
-      console.log(error);
+      console.error(error);
     });
 });
 
 const slider = document.querySelector('.swiper-wrapper');
-fetch('http://localhost/api/products/?page=1')
+fetch(`${import.meta.env.VITE_API_URL}/products/?page=1`)
   .then((response) => {
     return response.json();
   })
@@ -92,7 +97,7 @@ fetch('http://localhost/api/products/?page=1')
               data-aos-anchor=".products__title"
             >
               <img
-                src="http://localhost/api/products/${product.file}"
+                src="${import.meta.env.VITE_API_URL}/products/${product.file}"
                 alt="Пакет кави"
               />
               <h3 class="swiper-slide__title">
@@ -107,5 +112,5 @@ fetch('http://localhost/api/products/?page=1')
     swiper.update();
   })
   .catch((error) => {
-    console.log(error);
+    console.error(error);
   });

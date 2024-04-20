@@ -1,7 +1,16 @@
 <template>
-  <h1 class="mt-6 mb-6" v-if="error">{{ error }}</h1>
+  <h1 v-if="error">{{ error }}</h1>
+  <v-sheet v-else-if="loading" style="display: flex">
+    <v-progress-circular
+      class="mx-auto"
+      :size="96"
+      :width="8"
+      color="#007aff"
+      indeterminate
+    ></v-progress-circular>
+  </v-sheet>
   <template v-else>
-    <ul v-if="products.length" class="advantages__list mt-6 mb-6">
+    <ul v-if="products.length" class="advantages__list mb-6">
       <v-card v-for="item of products" :key="item.id">
         <v-img height="196.5" :src="`${API}/products/${item.file}`" cover></v-img>
         <v-card-item>
@@ -58,40 +67,38 @@ export default {
             this.totalPages = 0;
             return;
           }
-
           this.products = data.products;
           this.totalPages = data.totalPages;
-          this.$router.push({ query: { page: page } });
+          if (this.$route.name === 'MainPage') this.$router.push({ query: { page: page } });
         })
         .catch((error) => {
           if (error.name === 'AbortError') {
             return;
           }
-
           this.error = error;
           console.error(error);
+        })
+        .finally(() => {
+          this.loading = false;
         });
     }
   },
   watch: {
     page() {
       this.loadProducts(this.page);
+    },
+    loading() {
+      const appElement = document.getElementById('app');
+      this.loading ? (appElement.style.marginTop = 'auto') : (appElement.style.marginTop = '');
     }
   },
   created() {
+    this.loading = true;
     this.loadProducts(this.page);
+  },
+  beforeUnmount() {
+    const appElement = document.getElementById('app');
+    appElement.style.marginTop = '';
   }
 };
 </script>
-
-<!-- <style>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-</style> -->

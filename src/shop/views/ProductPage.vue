@@ -1,6 +1,15 @@
 <template>
-  <h1 class="mt-6 mb-6" v-if="error">{{ error }}</h1>
-  <div class="product mt-6" v-else-if="product">
+  <h1 v-if="error">{{ error }}</h1>
+  <v-sheet v-else-if="createdLoading" style="display: flex">
+    <v-progress-circular
+      class="mx-auto"
+      :size="96"
+      :width="8"
+      color="#007aff"
+      indeterminate
+    ></v-progress-circular>
+  </v-sheet>
+  <div class="product" v-else-if="product">
     <v-img class="product__image" :src="`${API}/products/${product.file}`" cover />
     <div class="product__info">
       <h1 class="mb-4">{{ product.name }}</h1>
@@ -30,6 +39,7 @@ export default {
 
       product: null,
 
+      createdLoading: true,
       loading: false,
 
       error: null
@@ -41,20 +51,22 @@ export default {
         .then((response) => response.json())
         .then((data) => {
           if (data.code !== 200) {
-            this.error = `${data.code} — ${data.message}`;
             this.totalPages = 0;
+            this.error = `${data.code} — ${data.message}`;
+            this.createdLoading = false;
             return;
           }
           this.product = data.product;
+          this.createdLoading = false;
         })
         .catch((error) => {
           this.error = error;
+          this.createdLoading = false;
           console.error(error);
         });
     },
     addToCart() {
       this.loading = true;
-
       let cart = JSON.parse(localStorage.getItem('cart')) || [];
       cart.push(this.product);
       localStorage.setItem('cart', JSON.stringify(cart));
@@ -64,7 +76,19 @@ export default {
     }
   },
   created() {
+    const appElement = document.getElementById('app');
+    appElement.style.marginTop = 'auto';
     this.loadProduct(this.$route.params.id);
+  },
+  watch: {
+    createdLoading() {
+      const appElement = document.getElementById('app');
+      appElement.style.marginTop = '';
+    }
+  },
+  beforeUnmount() {
+    const appElement = document.getElementById('app');
+    appElement.style.marginTop = '';
   }
 };
 </script>

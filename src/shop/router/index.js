@@ -60,12 +60,4 @@ const router = createRouter({
   routes
 });
 
-router.beforeEach((to, from, next) => {
-  if (to.name === 'LoginPage') {
-    document.getElementById('app').style.marginTop = 'auto';
-  } else {
-    document.getElementById('app').style.marginTop = '';
-  }
-  next();
-});
 export default router;
