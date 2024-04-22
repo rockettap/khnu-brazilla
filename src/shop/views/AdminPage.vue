@@ -1,5 +1,6 @@
 <template>
   <h1 v-if="error">{{ error }}</h1>
+
   <template v-else>
     <h1 class="mb-6">Створити</h1>
     <v-sheet max-width="746.66">
@@ -8,30 +9,30 @@
           clearable
           accept="image/png, image/jpeg"
           hide-details="auto"
-          :rules="[fileRule]"
-          v-model="file"
-          label="File input"
+          :rules="[filesRule]"
+          v-model="files"
+          label="Файл"
           class="mb-4"
         ></v-file-input>
         <v-text-field
           class="mb-4"
           v-model="name"
           hide-details="auto"
-          :rules="[required]"
+          :rules="[requiredRule]"
           label="Назва"
         ></v-text-field>
         <v-text-field
           class="mb-4"
           v-model="price"
           hide-details="auto"
-          :rules="[required]"
+          :rules="[requiredRule]"
           label="Ціна"
         ></v-text-field>
         <v-textarea
           class="mb-4"
           v-model="description"
           hide-details="auto"
-          :rules="[required]"
+          :rules="[requiredRule]"
           label="Опис"
         ></v-textarea>
         <v-btn
@@ -118,7 +119,7 @@ export default {
 
       selected: null,
 
-      file: [],
+      files: [],
       name: '',
       price: '',
       description: '',
@@ -151,7 +152,7 @@ export default {
       this.loading = true;
 
       const formData = new FormData();
-      formData.append('file', this.file[0]);
+      formData.append('file', this.files[0]);
       formData.append('name', this.name);
       formData.append('price', this.price);
       formData.append('description', this.description);
@@ -182,10 +183,10 @@ export default {
     formatProducts(products) {
       return products.map((product) => product.name).join(', ');
     },
-    required(value) {
+    requiredRule(value) {
       return !!value.trim() || "Поле є обов'язковим";
     },
-    fileRule(value) {
+    filesRule(value) {
       return !!value.length || "Поле є обов'язковим";
     }
   }

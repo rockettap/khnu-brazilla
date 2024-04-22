@@ -1,45 +1,51 @@
 <template>
   <h1 v-if="error">{{ error }}</h1>
-  <v-sheet v-else-if="createdLoading" style="display: flex">
-    <v-progress-circular
-      class="mx-auto"
-      :size="96"
-      :width="8"
-      color="#007aff"
-      indeterminate
-    ></v-progress-circular>
-  </v-sheet>
-  <v-sheet v-else-if="!createdLoading || loading" class="mx-auto" max-width="746.66">
-    <v-form fast-fail @submit.prevent="login" v-model="valid">
-      <v-text-field
-        class="mb-4"
-        v-model="username"
-        hide-details="auto"
-        :rules="[required]"
-        label="Ім'я"
-      ></v-text-field>
-      <v-text-field
-        class="mb-4"
-        v-model="password"
-        hide-details="auto"
-        :rules="[required]"
-        label="Пароль"
-      ></v-text-field>
-      <v-btn
-        class="mt-2"
-        type="submit"
-        block
-        size="large"
+
+  <template v-else-if="createdLoading">
+    <v-sheet style="display: flex">
+      <v-progress-circular
+        class="mx-auto"
+        :size="96"
+        :width="8"
         color="#007aff"
-        variant="flat"
-        rounded="xl"
-        :loading="loading"
-        :disabled="!valid"
-      >
-        Увійти
-      </v-btn>
-    </v-form>
-  </v-sheet>
+        indeterminate
+      ></v-progress-circular>
+    </v-sheet>
+  </template>
+
+  <template v-else-if="!createdLoading || loading">
+    <v-sheet class="mx-auto" max-width="746.66">
+      <v-form fast-fail @submit.prevent="login" v-model="valid">
+        <v-text-field
+          class="mb-4"
+          v-model="username"
+          hide-details="auto"
+          :rules="[required]"
+          label="Ім'я"
+        ></v-text-field>
+        <v-text-field
+          class="mb-4"
+          v-model="password"
+          hide-details="auto"
+          :rules="[required]"
+          label="Пароль"
+        ></v-text-field>
+        <v-btn
+          class="mt-2"
+          type="submit"
+          block
+          size="large"
+          color="#007aff"
+          variant="flat"
+          rounded="xl"
+          :loading="loading"
+          :disabled="!valid"
+        >
+          Увійти
+        </v-btn>
+      </v-form>
+    </v-sheet>
+  </template>
 </template>
 
 <script>
@@ -56,16 +62,31 @@ export default {
 
       valid: false,
 
-      createdLoading: true,
+      createdLoading: false,
       loading: false,
 
       error: null
     };
   },
+  created() {
+    this.createdLoading = true;
+    this.getContacts();
+    this.getOrders();
+  },
+  beforeUnmount() {
+    document.getElementById('app').style.marginTop = '';
+  },
+  watch: {
+    createdLoading() {
+      document.getElementById('app').style.marginTop = this.createdLoading ? 'auto' : '';
+    }
+  },
   methods: {
     login() {
       if (!this.valid) return;
+
       this.loading = true;
+
       const formData = new URLSearchParams();
       formData.append('username', this.username);
       formData.append('password', this.password);
@@ -84,10 +105,14 @@ export default {
             store.isAdmin = false;
             return;
           }
+
           store.isAdmin = true;
           this.getContacts();
           this.getOrders();
-          if (this.$route.path === '/login') this.$router.push('/admin');
+
+          if (this.$route.path === '/login') {
+            this.$router.push('/admin');
+          }
         })
         .catch((error) => {
           console.error(error);
@@ -107,9 +132,14 @@ export default {
             this.createdLoading = false;
             return;
           }
+
           store.isAdmin = true;
-          if (data.messages) store.contactItems = data.messages;
-          if (this.$route.path === '/login') this.$router.push('/admin');
+          if (data.messages) {
+            store.contactItems = data.messages;
+          }
+          if (this.$route.path === '/login') {
+            this.$router.push('/admin');
+          }
         })
         .catch((error) => {
           this.createdLoading = false;
@@ -139,16 +169,6 @@ export default {
     required(value) {
       return !!value.trim() || "Поле є обов'язковим";
     }
-  },
-  created() {
-    const appElement = document.getElementById('app');
-    appElement.style.marginTop = 'auto';
-    this.getContacts();
-    this.getOrders();
-  },
-  beforeUnmount() {
-    const appElement = document.getElementById('app');
-    appElement.style.marginTop = '';
   }
 };
 </script>

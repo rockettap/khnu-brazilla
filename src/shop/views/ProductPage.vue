@@ -1,34 +1,40 @@
 <template>
   <h1 v-if="error">{{ error }}</h1>
-  <v-sheet v-else-if="createdLoading" style="display: flex">
-    <v-progress-circular
-      class="mx-auto"
-      :size="96"
-      :width="8"
-      color="#007aff"
-      indeterminate
-    ></v-progress-circular>
-  </v-sheet>
-  <div class="product" v-else-if="product">
-    <v-img class="product__image" :src="`${API}/products/${product.file}`" cover />
-    <div class="product__info">
-      <h1 class="mb-4">{{ product.name }}</h1>
-      <h3 class="mb-4">{{ product.price }} ₴</h3>
-      <p class="mb-4">{{ product.description }}</p>
-      <v-btn
-        class="product__btn"
-        prepend-icon="mdi-cart"
-        size="large"
+
+  <template v-else-if="createdLoading">
+    <v-sheet style="display: flex">
+      <v-progress-circular
+        class="mx-auto"
+        :size="96"
+        :width="8"
         color="#007aff"
-        variant="flat"
-        rounded="xl"
-        :loading="loading"
-        @click="addToCart"
-      >
-        Додати у кошик
-      </v-btn>
+        indeterminate
+      ></v-progress-circular>
+    </v-sheet>
+  </template>
+
+  <template v-else-if="product">
+    <div class="product">
+      <v-img class="product__image" :src="`${API}/products/${product.file}`" cover />
+      <div class="product__info">
+        <h1 class="mb-4">{{ product.name }}</h1>
+        <h3 class="mb-4">{{ product.price }} ₴</h3>
+        <p class="mb-4">{{ product.description }}</p>
+        <v-btn
+          class="product__btn"
+          prepend-icon="mdi-cart"
+          size="large"
+          color="#007aff"
+          variant="flat"
+          rounded="xl"
+          :loading="loading"
+          @click="addToCart"
+        >
+          Додати у кошик
+        </v-btn>
+      </div>
     </div>
-  </div>
+  </template>
 </template>
 
 <script>
@@ -39,11 +45,23 @@ export default {
 
       product: null,
 
-      createdLoading: true,
+      createdLoading: false,
       loading: false,
 
       error: null
     };
+  },
+  created() {
+    this.createdLoading = true;
+    this.loadProduct(this.$route.params.id);
+  },
+  beforeUnmount() {
+    document.getElementById('app').style.marginTop = '';
+  },
+  watch: {
+    createdLoading() {
+      document.getElementById('app').style.marginTop = this.createdLoading ? 'auto' : '';
+    }
   },
   methods: {
     loadProduct(id) {
@@ -51,44 +69,32 @@ export default {
         .then((response) => response.json())
         .then((data) => {
           if (data.code !== 200) {
-            this.totalPages = 0;
             this.error = `${data.code} — ${data.message}`;
             this.createdLoading = false;
             return;
           }
+
           this.product = data.product;
           this.createdLoading = false;
         })
         .catch((error) => {
           this.error = error;
           this.createdLoading = false;
+
           console.error(error);
         });
     },
     addToCart() {
       this.loading = true;
+
       let cart = JSON.parse(localStorage.getItem('cart')) || [];
       cart.push(this.product);
       localStorage.setItem('cart', JSON.stringify(cart));
+
       setTimeout(async () => {
         this.loading = false;
       }, 1000);
     }
-  },
-  created() {
-    const appElement = document.getElementById('app');
-    appElement.style.marginTop = 'auto';
-    this.loadProduct(this.$route.params.id);
-  },
-  watch: {
-    createdLoading() {
-      const appElement = document.getElementById('app');
-      appElement.style.marginTop = '';
-    }
-  },
-  beforeUnmount() {
-    const appElement = document.getElementById('app');
-    appElement.style.marginTop = '';
   }
 };
 </script>

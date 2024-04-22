@@ -1,6 +1,7 @@
 <template>
   <h1 v-if="error">{{ error }}</h1>
-  <div v-else-if="cart.length">
+
+  <template v-else-if="cart.length">
     <h1 class="mb-6">Оформлення замовлення</h1>
     <div style="display: flex; gap: 24px; flex-wrap: wrap">
       <div style="flex: 1 0; max-width: 608px; max-width: 100%">
@@ -54,7 +55,8 @@
         <h3 class="mt-2">Усього — {{ computedTotal.toFixed(2) }} ₴</h3>
       </div>
     </div>
-  </div>
+  </template>
+
   <template v-else>
     <div v-if="success">
       <h1>{{ success }}</h1>
@@ -81,13 +83,17 @@ export default {
 
       loading: false,
 
-      success: null,
-      error: null
+      error: null,
+      success: null
     };
+  },
+  created() {
+    this.parseLocalStorage();
   },
   computed: {
     computedCart() {
       const cartObj = {};
+
       this.cart.forEach((item) => {
         const itemId = item.id;
         if (cartObj[itemId]) {
@@ -96,20 +102,25 @@ export default {
           cartObj[itemId] = { ...item, quantity: 1 };
         }
       });
+
       return cartObj;
     },
     computedTotal() {
       let total = 0;
+
       Object.values(this.computedCart).forEach((item) => {
         total += item.quantity * item.price;
       });
+
       return total;
     },
     computedQuantity() {
       let quantity = 0;
+
       Object.values(this.computedCart).forEach((item) => {
         quantity += item.quantity;
       });
+
       return quantity;
     },
     computedQuantityPlural() {
@@ -128,9 +139,6 @@ export default {
         return 'товарів';
       }
     }
-  },
-  created() {
-    this.parseLocalStorage();
   },
   methods: {
     parseLocalStorage() {
@@ -163,9 +171,11 @@ export default {
             this.error = `${data.code} — ${data.message}`;
             return;
           }
+
           localStorage.removeItem('cart');
           this.cart = [];
           this.success = 'Успіх!';
+
           setTimeout(() => {
             this.success = null;
           }, 5000);

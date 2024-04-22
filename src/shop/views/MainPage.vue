@@ -1,14 +1,18 @@
 <template>
   <h1 v-if="error">{{ error }}</h1>
-  <v-sheet v-else-if="loading" style="display: flex">
-    <v-progress-circular
-      class="mx-auto"
-      :size="96"
-      :width="8"
-      color="#007aff"
-      indeterminate
-    ></v-progress-circular>
-  </v-sheet>
+
+  <template v-else-if="createdLoading">
+    <v-sheet style="display: flex">
+      <v-progress-circular
+        class="mx-auto"
+        :size="96"
+        :width="8"
+        color="#007aff"
+        indeterminate
+      ></v-progress-circular>
+    </v-sheet>
+  </template>
+
   <template v-else>
     <ul v-if="products.length" class="advantages__list mb-6">
       <v-card v-for="item of products" :key="item.id">
@@ -47,10 +51,25 @@ export default {
       products: [],
       totalPages: null,
 
-      loading: false,
+      createdLoading: false,
 
       error: null
     };
+  },
+  created() {
+    this.createdLoading = true;
+    this.loadProducts(this.page);
+  },
+  beforeUnmount() {
+    document.getElementById('app').style.marginTop = '';
+  },
+  watch: {
+    page() {
+      this.loadProducts(this.page);
+    },
+    createdLoading() {
+      document.getElementById('app').style.marginTop = this.createdLoading ? 'auto' : '';
+    }
   },
   methods: {
     loadProducts(page) {
@@ -64,41 +83,31 @@ export default {
         .then((data) => {
           if (data.code !== 200) {
             this.error = `${data.code} — ${data.message}`;
-            this.totalPages = 0;
+            this.products = [];
+            this.totalPages = null;
             return;
           }
+
           this.products = data.products;
           this.totalPages = data.totalPages;
-          if (this.$route.name === 'MainPage') this.$router.push({ query: { page: page } });
+
+          if (this.$route.name === 'MainPage') {
+            this.$router.push({ query: { page: page } });
+          }
         })
         .catch((error) => {
           if (error.name === 'AbortError') {
             return;
           }
+
           this.error = error;
+
           console.error(error);
         })
         .finally(() => {
-          this.loading = false;
+          this.createdLoading = false;
         });
     }
-  },
-  watch: {
-    page() {
-      this.loadProducts(this.page);
-    },
-    loading() {
-      const appElement = document.getElementById('app');
-      this.loading ? (appElement.style.marginTop = 'auto') : (appElement.style.marginTop = '');
-    }
-  },
-  created() {
-    this.loading = true;
-    this.loadProducts(this.page);
-  },
-  beforeUnmount() {
-    const appElement = document.getElementById('app');
-    appElement.style.marginTop = '';
   }
 };
 </script>
